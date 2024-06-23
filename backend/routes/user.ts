@@ -3,7 +3,7 @@ import { Jwt } from "jsonwebtoken";
 import { PrismaClient } from "@prisma/client";
 import jwt from "jsonwebtoken";
 import jwtPassword from "../config";
-import { CustomRequest } from "../customInterface";
+import { CustomRequest } from "../controllers/customInterface";
 import { Response } from "express";
 import {
   userAuthCheck,

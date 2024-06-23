@@ -4,7 +4,7 @@ import { PrismaClient } from "@prisma/client";
 import { JwtPayload } from "jsonwebtoken";
 import jwt from "jsonwebtoken";
 import jwtPassword from "../config";
-import { CustomRequest } from "../customInterface";
+import { CustomRequest } from "../controllers/customInterface";
 const prisma = new PrismaClient();
 
 async function userSignupCheck(
