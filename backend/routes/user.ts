@@ -36,7 +36,7 @@ router.post("/signup", signupValidation, userSignupCheck, async (req, res) => {
   });
   const id = user.id;
   const token = jwt.sign({ id: id }, jwtPassword);
-  res.status(200).json({ message: "Signed in succesfully", token: token });
+  res.status(200).json({ message: "Signed up succesfully", token: token });
 });
 
 router.post(
