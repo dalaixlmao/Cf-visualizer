@@ -19,7 +19,7 @@ export default function Signin() {
     console.log(email, password);
     console.log("clicked");
     try {
-      const response = await axios.post("https://ec2-65-2-78-117.ap-south-1.compute.amazonaws.com:8000/user/signin", {
+      const response = await axios.post("http://ec2-65-2-78-117.ap-south-1.compute.amazonaws.com:8000/user/signin", {
         email: email,
         password: password,
       });

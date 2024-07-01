@@ -29,7 +29,7 @@ export default function HandleBoard() {
     const h = param.get("handle");
     if (h) setHandle(h);
     axios
-      .get("https://ec2-65-2-78-117.ap-south-1.compute.amazonaws.com:8000/user/handle/" + handle)
+      .get("http://ec2-65-2-78-117.ap-south-1.compute.amazonaws.com:8000/user/handle/" + handle)
       .then((res) => {
         const result = res.data.result;
         setName(result.firstname + " " + result.lastname);
