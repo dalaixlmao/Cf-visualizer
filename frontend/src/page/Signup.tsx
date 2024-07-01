@@ -19,7 +19,7 @@ export default function Signup() {
       setLoading(true);
       console.log(email, password, handle);
         console.log("clicked")
-        try{const response = await axios.post("http://ec2-65-2-78-117.ap-south-1.compute.amazonaws.com:8000/user/signup", {
+        try{const response = await axios.post("https://ec2-65-2-78-117.ap-south-1.compute.amazonaws.com:8000/user/signup", {
           email:email,
           password:password,
           handle:handle

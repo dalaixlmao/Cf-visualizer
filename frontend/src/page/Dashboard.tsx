@@ -27,7 +27,7 @@ export default function Dashboard() {
   useEffect(() => {
     console.log(localStorage.getItem("token"));
     axios
-      .get("http://ec2-65-2-78-117.ap-south-1.compute.amazonaws.com:8000/user/dashboard", {
+      .get("https://ec2-65-2-78-117.ap-south-1.compute.amazonaws.com:8000/user/dashboard", {
         headers: {
           Authorization: localStorage.getItem("token"),
         },
