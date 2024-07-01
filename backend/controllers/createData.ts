@@ -2,6 +2,7 @@ import { object } from "zod";
 
 function createData(response: any) {
   const result = response.data.result;
+  console.log("working in controller b4 operation");
   let m: { [key: string]: { tags: string[]; rating: number } } = {}; // Initialize as an object with specified structure
 
   for (let i = 0; i < result.length; i++) {

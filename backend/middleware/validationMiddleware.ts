@@ -1,18 +1,18 @@
 import z from "zod";
 import { Request, Response, NextFunction } from "express";
 
-const usernameSchema = z.string().email();
+const emailSchema = z.string().email();
 const passwordSchema = z.string().min(8);
 const handleSchema = z.string();
 
 const userSignup = z.object({
-    username:usernameSchema,
+    email:emailSchema,
     password:passwordSchema,
     handle:handleSchema
 })
 
 const userSignin = z.object({
-    username:usernameSchema,
+    email:emailSchema,
     password:passwordSchema
 })
 

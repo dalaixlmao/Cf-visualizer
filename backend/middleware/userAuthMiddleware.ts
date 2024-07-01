@@ -12,10 +12,10 @@ async function userSignupCheck(
   res: Response,
   next: NextFunction
 ) {
-  const username = req.body.username;
+  const email = req.body.email;
   const user = await prisma.user.findUnique({
     where: {
-      username: username,
+      email: email,
     },
   });
   if (user) res.status(403).json({ message: "User already exist" });
@@ -27,10 +27,10 @@ async function userSigninCheck(
   res: Response,
   next: NextFunction
 ) {
-  const username = req.body.username;
+  const email = req.body.email;
   const user = await prisma.user.findUnique({
     where: {
-      username: username,
+      email: email,
     },
   });
   if (user) next();
@@ -45,18 +45,15 @@ async function userAuthCheck(
   res: Response,
   next: NextFunction
 ) {
-
+  
   const a = req.headers.authorization || "";
   const token = a.split(" ")[1];
   try {
     const decoded = jwt.verify(token, jwtPassword) as JwtPayload;
-    console.log(typeof decoded, typeof decoded.id, decoded.id)
     if (typeof decoded.id !== "string" && decoded.id) {
-        console.log("working");
       const user = await prisma.user.findUnique({
         where: { id: decoded.id },
       });
-      console.log(user);
       if (user) {
         req.id = decoded.id;
         next();

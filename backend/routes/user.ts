@@ -25,11 +25,11 @@ router.use(bodyParser.json());
 
 router.post("/signup", signupValidation, userSignupCheck, async (req, res) => {
   const handle = req.body.handle;
-  const username = req.body.username;
+  const email = req.body.email;
   const password = req.body.password;
   const user = await prisma.user.create({
     data: {
-      username: username,
+      email: email,
       password: password,
       handle: handle,
     },
@@ -44,24 +44,85 @@ router.post(
   signinValidation,
   userSigninCheck,
   async (req: CustomRequest, res: Response) => {
-    const username = req.body.username;
+    const email = req.body.email;
     const password = req.body.password;
     const user = await prisma.user.findUnique({
       where: {
-        username: username,
+        email: email,
       },
     });
-    const id = user?.id;
-    const token = jwt.sign({ id: id }, jwtPassword);
-    res.status(200).json({ message: "signed in successfully", token: token });
+    if (!user) {
+      res.status(500).json({ message: "server error" });
+    }
+    if (user?.password == password) {
+      const id = user?.id;
+      const token = jwt.sign({ id: id }, jwtPassword);
+      res.status(200).json({ message: "Signed in successfully", token: token });
+    }
   }
 );
+
+router.get("/handle/:handle", async (req: CustomRequest, res: Response) => {
+  const handle = req.params.handle;
+  console.log(handle);
+  try {
+    const url = "https://codeforces.com/api/user.info?handles=" + handle;
+    const response = await axios.get(url);
+    const url2 = "https://codeforces.com/api/user.status?handle=" + handle;
+    const response2 = await axios.get(url2);
+    const tagRatingData = createData(response2);
+    const result = response.data.result[0];
+    const requiredObj = {
+      firstname: result.firstName,
+      lastname: result.lastName,
+      rank: result.rank,
+      maxRank: result.maxRank,
+      maxRating: result.maxRating,
+      avatar: result.avatar,
+      titlePhoto: result.titlePhoto,
+      country: result.country,
+      currentRating: result.rating,
+      handle: handle,
+    };
+    res.status(200).json({
+      result: requiredObj,
+      tagRating: tagRatingData,
+    });
+  } catch (e) {
+    res.status(500).json({
+      message: "Error fetching data from Codeforces API",
+    });
+  }
+});
+
+router.get("/nav", userAuthCheck, async (req: CustomRequest, res: Response) => {
+  const id = req.id;
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: id },
+    });
+    if (!user) {
+      res.status(500).json({ message: "server error" });
+    }
+    const handle = user?.handle;
+
+    const url =
+          "https://codeforces.com/api/user.info?handles=" + handle;
+        console.log("valid url?", url);
+        const response = await axios.get(url);
+        const avatar = response.data.result[0].titlePhoto;
+    res.status(200).json({ handle: handle, avatar:avatar });
+  } catch (e) {
+    res.status(500).json({ message: "error in fetching data from cf" });
+  }
+});
 
 router.get(
   "/dashboard",
   userAuthCheck,
   async (req: CustomRequest, res: Response) => {
     const id = req.id;
+    console.log("working after middlewares");
 
     if (!id) {
       return res.status(400).json({ message: "User ID not provided" });
@@ -78,8 +139,9 @@ router.get(
       try {
         const url =
           "https://codeforces.com/api/user.info?handles=" + user.handle;
-        console.log(url);
+        console.log("valid url?", url);
         const response = await axios.get(url);
+        console.log("info response fetched", response);
         const url2 =
           "https://codeforces.com/api/user.status?handle=" + user.handle;
         const response2 = await axios.get(url2);
@@ -95,13 +157,12 @@ router.get(
           titlePhoto: result.titlePhoto,
           country: result.country,
           currentRating: result.rating,
+          handle: user.handle,
         };
-        res
-          .status(200)
-          .json({
-            result: requiredObj,
-            tagRating: tagRatingData
-          });
+        res.status(200).json({
+          result: requiredObj,
+          tagRating: tagRatingData,
+        });
       } catch (axiosError) {
         res.status(500).json({
           message: "Error fetching data from Codeforces API",
