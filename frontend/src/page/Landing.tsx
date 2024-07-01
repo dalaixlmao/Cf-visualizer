@@ -15,7 +15,7 @@ export default function Landing() {
   onKeyDown={(e) => {
     if (e.key === "Enter") {
       const target = e.target as HTMLInputElement;
-      navigate("/user/?handle=" + (target.value ? target.value : ""));
+      navigate("/landing/?handle=" + (target.value ? target.value : ""));
     }
   }}
 />
