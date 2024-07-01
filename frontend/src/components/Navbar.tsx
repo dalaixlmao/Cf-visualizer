@@ -8,7 +8,7 @@ export function Navbar({ page }: { page: string }) {
   const navigate = useNavigate();
   useEffect(() => {
     axios
-      .get("http://localhost:8000/user/nav", {
+      .get("http://ec2-65-2-78-117.ap-south-1.compute.amazonaws.com:8000/user/nav", {
         headers: {
           Authorization: localStorage.getItem("token"),
         },

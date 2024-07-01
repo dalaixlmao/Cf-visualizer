@@ -30,7 +30,7 @@ export default function HandleBoard() {
     const h = param.get("handle");
     if (h) setHandle(h);
     axios
-      .get("http://localhost:8000/user/handle/" + handle)
+      .get("http://ec2-65-2-78-117.ap-south-1.compute.amazonaws.com:8000/user/handle/" + handle)
       .then((res) => {
         const result = res.data.result;
         setName(result.firstname + " " + result.lastname);
@@ -45,12 +45,10 @@ export default function HandleBoard() {
         setLoading(false);
       })
       .catch((e) => {
-        setTimeout(() => {
           setError(true);
           setTimeout(() => {
             setError(false);
           }, 3000);
-        }, 3000);
       });
   }, [handle]);
   return (
