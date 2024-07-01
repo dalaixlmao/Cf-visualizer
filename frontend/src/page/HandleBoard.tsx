@@ -22,8 +22,7 @@ export default function HandleBoard() {
   const [maxRank, setMaxRank] = useState<Rank>("newbie");
   const [tagRating, setTagRating] = useState({});
   const navigate = useNavigate();
-  const [param, setParams] = useSearchParams();
-  const [dp, setDp] = useState("");
+  const [param] = useSearchParams();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   useEffect(() => {
@@ -44,7 +43,7 @@ export default function HandleBoard() {
         console.log(res.data.tagRating);
         setLoading(false);
       })
-      .catch((e) => {
+      .catch(() => {
           setError(true);
           setTimeout(() => {
             setError(false);
@@ -58,16 +57,18 @@ export default function HandleBoard() {
         {error ? <ErrorComponent /> : <></>}
       </div>
       <div className="flex flex-row items-center justify-center w-4/5 mt-5">
-        <input
-          className="w-full md:w-1/3 bg-white z-2 py-2 px-3 rounded-lg shadow-2xl"
-          type="text"
-          placeholder="Search handle"
-          onKeyDown={(e) => {
-            if (e.key == "Enter") {
-              navigate("/user/?handle=" + e.target.value + "&img=" + avatar);
-            }
-          }}
-        />
+      <input
+  className="w-full md:w-1/3 bg-white z-2 py-2 px-3 rounded-lg shadow-2xl"
+  type="text"
+  placeholder="Search handle"
+  onKeyDown={(e) => {
+    if (e.key === "Enter") {
+      const target = e.target as HTMLInputElement;
+      navigate("/user/?handle=" + (target.value ? target.value : ""));
+    }
+  }}
+/>
+
       </div>
 
       <div className="flex justify-center items-center w-full md:w-4/5 mt-5 bg-white rounded-xl">
