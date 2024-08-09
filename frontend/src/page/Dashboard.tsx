@@ -25,15 +25,13 @@ export default function Dashboard() {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    console.log(localStorage.getItem("token"));
     axios
-      .get("http://ec2-65-2-78-117.ap-south-1.compute.amazonaws.com:8000/user/dashboard", {
+      .get("http://ec2-35-154-12-206.ap-south-1.compute.amazonaws.com:8000/user/dashboard", {
         headers: {
           Authorization: localStorage.getItem("token"),
         },
       })
       .then((res) => {
-        console.log(res);
         const result = res.data.result;
         setName(result.firstname + " " + result.lastname);
         setAvatar(result.titlePhoto);

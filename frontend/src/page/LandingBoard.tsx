@@ -31,7 +31,7 @@ export default function LandingBoard() {
     if(h)
     setHandle(h);
     axios
-      .get("http://ec2-65-2-78-117.ap-south-1.compute.amazonaws.com:8000/user/handle/"+handle)
+      .get("http://ec2-35-154-12-206.ap-south-1.compute.amazonaws.com:8000/user/handle/"+handle)
       .then((res) => {
         const result = res.data.result;
         setName(result.firstname + " " + result.lastname);
@@ -42,7 +42,6 @@ export default function LandingBoard() {
         setRank(result.rank);
         setMaxRank(result.maxRank);
         setTagRating(res.data.tagRating);
-        console.log(res.data.tagRating);
         setLoading(false)
       }).catch(()=>{setError(true);setTimeout(()=>{
         setError(false)

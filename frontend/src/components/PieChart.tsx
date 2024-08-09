@@ -66,7 +66,6 @@ export default function PieChart({ data }: any) {
       c++;
     });
     setchartData(d);
-    console.log(t);
   }, [data]);
 
   const options = {

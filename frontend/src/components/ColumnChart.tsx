@@ -62,7 +62,6 @@ export default function ColumnChart({ data }: any) {
       c++;
     });
     setchartData(d);
-    console.log(t);
   }, [data]);
 
   const options = {

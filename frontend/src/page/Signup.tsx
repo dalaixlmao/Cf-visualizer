@@ -17,14 +17,11 @@ export default function Signup() {
 
     async function onClick(){
       setLoading(true);
-      console.log(email, password, handle);
-        console.log("clicked")
-        try{const response = await axios.post("https://ec2-65-2-78-117.ap-south-1.compute.amazonaws.com:8000/user/signup", {
+        try{const response = await axios.post("https://ec2-35-154-12-206.ap-south-1.compute.amazonaws.com:8000/user/signup", {
           email:email,
           password:password,
           handle:handle
         });
-        console.log(response.data)
         if (response.data.message == "Signed up successfully") {
             localStorage.setItem("token", "Bearer "+ response.data.token);
             navigate("/dashboard");

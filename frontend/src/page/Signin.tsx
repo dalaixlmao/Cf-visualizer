@@ -16,14 +16,11 @@ export default function Signin() {
 
   async function onClick() {
     setLoading(true);
-    console.log(email, password);
-    console.log("clicked");
     try {
-      const response = await axios.post("http://ec2-65-2-78-117.ap-south-1.compute.amazonaws.com:8000/user/signin", {
+      const response = await axios.post("http://ec2-35-154-12-206.ap-south-1.compute.amazonaws.com:8000/user/signin", {
         email: email,
         password: password,
       });
-      console.log(response.data);
       setLoading(false);
       if (response.data.message == "Signed in successfully") {
         localStorage.setItem("token", "Bearer " + response.data.token);

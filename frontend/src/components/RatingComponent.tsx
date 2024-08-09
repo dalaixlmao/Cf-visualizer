@@ -29,8 +29,6 @@ export default function RatingComponent({
     return rankColors[rank];
   }
 
-  console.log(getColor(maxRank));
-
   return (
     <div className="flex flex-col md:flex-row justify-between mt-5 border-b pb-6">
       <div className="flex flex-col items-center md:items-start">
