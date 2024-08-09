@@ -41,7 +41,7 @@ export default function Signup() {
       </div>
       <Card width="auto rounded-xl">
         <Heading title={"Sign Up"} subHeading="Don't have an account?"/>
-        <InputBox setFunction={setHandle} type="text" label="Password" placeholder="Enter your handle..."/>
+        <InputBox setFunction={setHandle} type="text" label="Handle" placeholder="Enter your handle..."/>
         <InputBox setFunction={setEmail} type="text" label="Email" placeholder="Enter your email..."/>
         <InputBox setFunction={setPassword} type="password" label="Password" placeholder="Enter your password..."/>
         <Button title={"Sign Up"} onClick={onClick} loading={loading}/>
