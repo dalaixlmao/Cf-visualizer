@@ -7,7 +7,7 @@ export default function LoaderDashboard(){
       <svg
         className="w-14 h-14 me-3 text-gray-200 dark:text-gray-400"
         aria-hidden="true"
-        xmlns="http://www.w3.org/2000/svg"
+        xmlns="https://www.w3.org/2000/svg"
         fill="currentColor"
         viewBox="0 0 20 20"
       >

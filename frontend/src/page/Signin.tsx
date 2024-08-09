@@ -17,7 +17,7 @@ export default function Signin() {
   async function onClick() {
     setLoading(true);
     try {
-      const response = await axios.post("http://ec2-35-154-12-206.ap-south-1.compute.amazonaws.com:8000/user/signin", {
+      const response = await axios.post("https://ec2-35-154-12-206.ap-south-1.compute.amazonaws.com:8000/user/signin", {
         email: email,
         password: password,
       });
